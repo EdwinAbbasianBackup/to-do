@@ -7,13 +7,13 @@ cd board-service
 mvn clean install -DskipTests
 ```
 
-2. Build board-service:
+2. Build user-service:
 ```
 cd user-service
 mvn clean install -DskipTests
 ```
 
-3. Build and Run the Backend with Docker Compose:
+3. Build and Run the Backend with Docker Compose, from project root:
 ```
 docker-compose up --build
 ```
