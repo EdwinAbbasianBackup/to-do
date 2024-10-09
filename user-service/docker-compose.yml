@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    image: 'user-service'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user-service
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=compose
+
+  db:
+    image: 'postgres:14.5-alpine'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    container_name: user-db
+    environment:
+      - POSTGRES_DB=user-db
+      - POSTGRES_USER=user-db-user
+      - POSTGRES_PASSWORD=user-db-password
+
+volumes:
+  db_data:

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: board-service
+  profiles:
+    active: compose
+
+
+user-service-http:
+  url: http://localhost:8081/api/v1/users/

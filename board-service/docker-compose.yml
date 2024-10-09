@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    image: 'board-service'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: board-service
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=compose
+
+  db:
+    image: 'postgres:14.5-alpine'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    container_name: board-db
+    environment:
+      - POSTGRES_DB=board-db
+      - POSTGRES_USER=board-db-user
+      - POSTGRES_PASSWORD=board-db-password
+
+volumes:
+  db_data:

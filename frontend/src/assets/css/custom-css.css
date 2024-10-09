@@ -1,0 +1,15 @@
+
+.login-form-box {
+    background-color: #ffffff; /* White */
+    box-shadow: 0 4px 100px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+}
+
+.login-bg {
+    font-family: "arial", heletica, sans-serif;
+    font-size: larger;
+    background-image: url("background_login.png");
+    background-size: cover;
+    background-position: center center;
+}

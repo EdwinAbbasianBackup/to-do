@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  board-service:
+    build:
+      context: ./board-service
+      dockerfile: Dockerfile
+    image: 'board-service'
+    container_name: board-service
+    depends_on:
+      - board-db
+      - user-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=compose
+    networks:
+      - backend
+
+  board-db:
+    image: 'postgres:14.5-alpine'
+    volumes:
+      - board_db_data:/var/lib/postgresql/data
+    container_name: board-db
+    environment:
+      - POSTGRES_DB=board-db
+      - POSTGRES_USER=board-db-user
+      - POSTGRES_PASSWORD=board-db-password
+    networks:
+      - backend
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    image: 'user-service'
+    container_name: user-service
+    depends_on:
+      - user-db
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=compose
+    networks:
+      - backend
+
+  user-db:
+    image: 'postgres:14.5-alpine'
+    volumes:
+      - user_db_data:/var/lib/postgresql/data
+    container_name: user-db
+    environment:
+      - POSTGRES_DB=user-db
+      - POSTGRES_USER=user-db-user
+      - POSTGRES_PASSWORD=user-db-password
+    networks:
+      - backend
+
+volumes:
+  board_db_data:
+  user_db_data:
+
+networks:
+  backend:
